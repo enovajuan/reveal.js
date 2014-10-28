@@ -42,22 +42,32 @@
   height: 20px
   width: 20px
 
-
 .art span img
   @extend .presentation
-  height: 175px
-  max-width: 150px
-  width: 100%
+  max-height: 200px
+  width: 155px
+  height: 100%
 
 .compare:before
   @extend .presentation
   content: 'vs.'
+  display: block
   font-weight: bold
   color: #ffffff
 
 .white
   color: #ffffff
   background-color: #000000
+  border-radius: 5px
+
+.horizontal
+  width: 100%
+  display: inline-flex
+  height: 350px
+
+
+.hidden
+  display: none
 
 
 
