@@ -426,13 +426,11 @@
         <div data-jumly='text/jumly+sequence' class="hidden">
             @found "ERB", ->
                 @message "render", "Markup", ->
-                  @message "load", "Boostrap"
-                  @message "load", "AngularJS", ->
-                      @create "dependencies"
-                  @message "load", "Other CSS"
-                  @message "load", "Other JS"
-
-
+                    @message "load", "Boostrap"
+                    @message "load", "AngularJS", ->
+                        @create "dependencies"
+                    @message "load", "Other CSS"
+                    @message "load", "Other JS"
 
 
         </div>
@@ -470,10 +468,16 @@
         <span class="fragment"><span class="herokuLogo"></span></span>
     </div>
     <h3 class="fragment roll-in">All follow patterns</h3>
+    <aside class="notes">
+        <h3>PRESS RIGHT</h3>
+    </aside>
 
 </section>
 
 <section>
+    <aside class="notes">
+        <h3>PRESS DOWN</h3>
+    </aside>
     <section>
         <h2><span class="bootstrapLogo"></span>Bootstrap</h2>
 
@@ -482,6 +486,9 @@
         </p>
 
         <h3 class="fragment">Always a grid of 12</h3>
+        <aside class="notes">
+            <h3>PRESS DOWN</h3>
+        </aside>
     </section>
     <section>
         <h2><span class="bootstrapLogo"></span>Bootstrap</h2>
@@ -489,6 +496,9 @@
         <h3>With Offsets</h3>
 
         <p><img src="images/bootstrap_with_offset.png"/></p>
+        <aside class="notes">
+            <h3>PRESS DOWN</h3>
+        </aside>
     </section>
     <section>
         <h2><span class="bootstrapLogo"></span>Bootstrap</h2>
@@ -496,6 +506,22 @@
         <h3>Nested</h3>
 
         <p><img src="images/bootstrap_nested.png"/></p>
+        <aside class="notes">
+            <h3>PRESS DOWN</h3>
+        </aside>
+    </section>
+    <section>
+        <h2><span class="bootstrapLogo"></span>Bootstrap</h2>
+
+        <h3>Setup in index</h3>
+        <pre>
+            <code data-trim>
+
+            </code>
+        </pre>
+        <aside class="notes">
+            <h3>PRESS RIGHT</h3>
+        </aside>
     </section>
 </section>
 
@@ -504,39 +530,49 @@
         <h2><span class="angularLogo"></span>AngularJS</h2>
 
         <p>
-           <ul>
-            <li>Directives</li>
+        <ul>
+            <li>Directives (ng-repeat)</li>
             <li>Controllers</li>
             <li>Functions</li>
             <li>Service</li>
-            </ul>
+        </ul>
         </p>
 
-        <h3 class="fragment">Model View Controller</h3>
+        <aside class="notes">
+            <h3>PRESS DOWN</h3>
+        </aside>
     </section>
     <section>
         <h2><span class="angularLogo"></span>AngularJS</h2>
 
-        <h3>Model</h3>
+        <h3 class="fragment">Model View Controller</h3>
 
         <p><img src="images/angular_model.png"/></p>
     </section>
     <section>
         <h2><span class="angularLogo"></span>AngularJS</h2>
 
+        <h3>Angular resource</h3>
+
         <pre>
             <code data-trim>
                 bombApp.factory("Bomb", function($resource) {
                 return $resource("/api/bomb",{},
                 {
-                'activate':  { method: 'GET' , url:"/api/bomb/:id/activate/:activation_code", params:{id: "@bomb_id", activation_code:"@activation_code"}},
-                'deactivate':  { method: 'GET', url:"/api/bomb/:id/deactivate/:deactivation_code", params:{id: "@bomb_id", deactivation_code:"@deactivationEntry"} },
+                'activate': { method: 'GET' ,
+                url:"/api/bomb/:id/activate/:activation_code", params:{id:
+                "@bomb_id", activation_code:"@activation_code"}},
+                'deactivate': { method: 'GET',
+                url:"/api/bomb/:id/deactivate/:deactivation_code", params:{id:
+                "@bomb_id", deactivation_code:"@deactivationEntry"} },
                 'submit': {method: 'POST', isObject:true},
-                'detonate':  { method: 'GET', url:"/api/bomb/detonate/:id", params:{id:"@bomb_id"} },
-                'cut':  { method: 'GET', url:"/api/bomb/cut/:id/:wire_id", params:{id:"@bomb_id", wire_id:"@wire_id"} },
-                'index':   { method: 'GET', isArray: true },
-                'show':    { method: 'GET', isArray: false },
-                'update':  { method: 'PUT' },
+                'detonate': { method: 'GET', url:"/api/bomb/detonate/:id",
+                params:{id:"@bomb_id"} },
+                'cut': { method: 'GET', url:"/api/bomb/cut/:id/:wire_id",
+                params:{id:"@bomb_id", wire_id:"@wire_id"} },
+                'index': { method: 'GET', isArray: true },
+                'show': { method: 'GET', isArray: false },
+                'update': { method: 'PUT' },
                 'explode': { method: 'GET' }
                 }
                 );
@@ -547,9 +583,51 @@
     <section>
         <h2><span class="angularLogo"></span>AngularJS</h2>
 
-        <h3>Controller</h3>
+        <h3>Sinatra Code - Bomb API</h3>
+        <pre>
+            <code data-trim>
+                # routes/bomb.rb
+                class Overlord < Sinatra::Application
+                get '/api/bomb/cut/:id/:wire_id' do
+                bomb ||= Bomb.get(params[:id]) || halt(404)
+                wire ||= bomb.wires.get(params[:wire_id]) || halt(404)
 
-        <p><img src="images/angular_model.png"/></p>
+                wire_response = cut_wire_status(wire)
+                cut_wire_response(bomb, wire_response, request.accept)
+                end
+
+                get '/api/bomb/list' do
+                bombs = Bomb.all.map do |bomb|
+                { id: bomb.id, status: bomb.status, attempts: bomb.attempts,
+                detonation_time: bomb.detonation_time }
+                end
+                format_response(bombs, request.accept)
+                end
+
+                get '/api/bomb/:id/activate/:activation_code' do
+                bomb ||= Bomb.get(params[:id]) || halt(404)
+                valid_code = bomb.activation_code.eql?(params[:activation_code])
+                if valid_code
+                valid_activation(bomb)
+                else
+                invalid_activation(bomb)
+                end
+                end
+
+                # ...
+            </code>
+        </pre>
+
+    </section>
+    <section>
+        <h2><span class="angularLogo"></span>AngularJS</h2>
+
+        <h3>ng-keypad</h3>
+        <pre>
+            <code data-trim>
+            </code>
+        </pre>
+
     </section>
 </section>
 
@@ -559,18 +637,14 @@
 
         <h2><span class="npmlogo"></span>NPM</h2>
 
-        <p>
-            <img src="images/angular_model.png" class="stretch"/>
-        </p>
-
-        <h3 class="fragment">TODO</h3>
     </section>
     <section>
-        <h2><span class="bowerLogo"></span>Bower</h2>
+        <h2>Grunt</h2>
 
-        <h2><span class="npmlogo"></span>NPM</h2>
-
-        <h3>TODO</h3>
+        <pre>
+            <code data-trim>
+            </code>
+            </pre>
 
     </section>
 </section>
@@ -579,49 +653,16 @@
     <section>
         <h2><span class="herokuLogo"></span>Heroku</h2>
 
-
-        <h3 class="fragment">Signup at <a href="www.heroku.com">Heroku.com</a> </h3>
+        <h3 class="fragment">Signup at <a href="www.heroku.com">Heroku.com</a>
+        </h3>
+        <pre class="fragment">
+            <code data-trim>
+            </code>
+        </pre>
     </section>
 
 </section>
 
-
-<!--<section>-->
-    <!--<h2>Clever Quotes</h2>-->
-
-    <!--<p>-->
-        <!--These guys come in two forms, inline: <q-->
-            <!--cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">-->
-        <!--&ldquo;The nice thing about standards is that there are so many to-->
-        <!--choose from&rdquo;</q> and block:-->
-    <!--</p>-->
-    <!--<blockquote-->
-            <!--cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">-->
-        <!--&ldquo;For years there has been a theory that millions of monkeys typing-->
-        <!--at random on millions of typewriters would-->
-        <!--reproduce the entire works of Shakespeare. The Internet has proven this-->
-        <!--theory to be untrue.&rdquo;-->
-    <!--</blockquote>-->
-<!--</section>-->
-
-
-<!--<section>-->
-    <!--<h2>Intergalactic Interconnections</h2>-->
-
-    <!--<p>-->
-        <!--You can link between slides internally,-->
-        <!--<a href="#/2/3">like this</a>.-->
-    <!--</p>-->
-<!--</section>-->
-
-
-<!--<section>-->
-<!--<h2>Take a Moment</h2>-->
-<!--<p>-->
-<!--Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen-->
-<!--during a presentation.-->
-<!--</p>-->
-<!--</section>-->
 
 <section>
     <h1>THE END</h1>
