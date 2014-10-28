@@ -2,10 +2,14 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/node_modules/grunt/node_modules/grunt-contrib-jshint/node_modules/jshint/node_modules/cli/examples/static.js" />
+        <item url="file://$PROJECT_DIR$/node_modules/grunt/node_modules/grunt-contrib-nodeunit/node_modules/nodeunit/test/fixtures/coffee/mock_coffee_module.js" />
         <item url="file://$PROJECT_DIR$/js/presentation.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/node_modules/grunt/node_modules/grunt-contrib-jshint/node_modules/jshint/node_modules/cli/examples/static.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/grunt/node_modules/grunt-contrib-nodeunit/node_modules/nodeunit/test/fixtures/coffee/mock_coffee_module.js" />
       <root url="file://$PROJECT_DIR$/js/presentation.js" />
     </CLASSES>
     <JAVADOC />
