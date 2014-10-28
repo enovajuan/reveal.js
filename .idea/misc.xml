@@ -2,9 +2,9 @@
 <project version="4">
   <component name="IdProvider" IDEtalkID="8ED9152DAC9D61EB7E8B7D30497B39EA" />
   <component name="ProjectKey">
-    <option name="state" value="https://github.com/hakimel/reveal.js.git" />
+    <option name="state" value="https://github.com/enovajuan/reveal.js.git" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="ruby-2.1.2-p95" project-jdk-type="RUBY_SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

@@ -1,0 +1,53 @@
+.presentation, .angularLogo, .bootstrapLogo, .bowerLogo, .herokuLogo, .npmlogo, .art span img, .compare:before {
+  display: inline-block; }
+
+.angularLogo {
+  background-size: 383px 108px;
+  background: url("../images/AngularJS-large.png") no-repeat;
+  width: 95px;
+  height: 100px; }
+
+.bootstrapLogo {
+  background-size: 100% 100%;
+  background: url("../images/bootstrap.png") no-repeat;
+  width: 100px;
+  height: 100px; }
+
+.bowerLogo {
+  background-size: 100% 100%;
+  width: 100px;
+  height: 100px;
+  background: url("../images/bower-logo.png") no-repeat; }
+
+.herokuLogo {
+  background-size: 100% 100%;
+  background: url("../images/heroku.png") no-repeat;
+  width: 354px;
+  height: 100px; }
+
+.npmlogo {
+  background-size: 100% 100%;
+  background: url("../images/npm.png") no-repeat;
+  width: 256px;
+  height: 100px; }
+
+.blankZoom {
+  display: inline-block;
+  height: 20px;
+  width: 20px; }
+
+.art span img {
+  height: 175px;
+  max-width: 150px;
+  width: 100%; }
+
+.compare:before {
+  content: "vs.";
+  font-weight: bold;
+  color: #ffffff; }
+
+.white {
+  color: #ffffff;
+  background-color: #000000; }
+
+/*# sourceMappingURL=custom.css.map */
