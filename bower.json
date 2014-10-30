@@ -1,0 +1,19 @@
+{
+  "name": "reveal.js",
+  "version": "2.6.2",
+  "homepage": "https://github.com/hakimel/reveal.js",
+  "authors": [
+    "Juan Bonfante <jbonfante@enova.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

@@ -395,45 +395,19 @@
 <section data-background="images/hs-2013-12-a-full_jpg.jpg">
     <h2>Application layout</h2>
 
-    <div class="fancy">
-        <div data-jumly='text/jumly+sequence' class="hidden">
-            @found "UI", ->
-                @message "init", "AngularJS", ->
-                    @create asynchronous: "connection", "API(Sinatra)"
-                    @message "activate", "API(Sinatra)", ->
-                        @message "init bomb", "Postgres", ->
-                            @reply "ok", "API(Sinatra)"
-                        @reply "bombID, wires", "UI"
-                    @message "cut wire", "API(Sinatra)", ->
-                        @message "cut wire_id", "Postgres", ->
-                            @reply "ok", "API(Sinatra)"
-                        @reply "defused/exploded/inert", "UI"
-                    @message "deactivate", "API(Sinatra)", ->
-                        @message "bomb id", "Postgres", ->
-                            @reply "ok", "API(Sinatra)"
-                        @reply "deactivated", "UI"
+<div style="display: block;">
+    <iframe src="uml.html" width="750" height="600"></iframe>
 
-
-        </div>
-    </div>
+</div>
 
 </section>
 
 <section data-background="images/hs-2013-12-a-full_jpg.jpg">
     <h2>Frontend layout</h2>
 
-    <div class="fancy">
-        <div data-jumly='text/jumly+sequence' class="hidden">
-            @found "ERB", ->
-                @message "render", "Markup", ->
-                    @message "load", "Boostrap"
-                    @message "load", "AngularJS", ->
-                        @create "dependencies"
-                    @message "load", "Other CSS"
-                    @message "load", "Other JS"
+    <div style="display: block;">
+        <iframe src="uml2.html" width="1080" height="375"></iframe>
 
-
-        </div>
     </div>
 
 </section>
@@ -530,12 +504,12 @@
         <h2><span class="angularLogo"></span>AngularJS</h2>
 
         <p>
-        <ul>
+           <ul>
             <li>Directives (ng-repeat)</li>
             <li>Controllers</li>
             <li>Functions</li>
             <li>Service</li>
-        </ul>
+            </ul>
         </p>
 
         <aside class="notes">
@@ -552,27 +526,19 @@
     <section>
         <h2><span class="angularLogo"></span>AngularJS</h2>
 
-        <h3>Angular resource</h3>
-
         <pre>
             <code data-trim>
                 bombApp.factory("Bomb", function($resource) {
                 return $resource("/api/bomb",{},
                 {
-                'activate': { method: 'GET' ,
-                url:"/api/bomb/:id/activate/:activation_code", params:{id:
-                "@bomb_id", activation_code:"@activation_code"}},
-                'deactivate': { method: 'GET',
-                url:"/api/bomb/:id/deactivate/:deactivation_code", params:{id:
-                "@bomb_id", deactivation_code:"@deactivationEntry"} },
+                'activate':  { method: 'GET' , url:"/api/bomb/:id/activate/:activation_code", params:{id: "@bomb_id", activation_code:"@activation_code"}},
+                'deactivate':  { method: 'GET', url:"/api/bomb/:id/deactivate/:deactivation_code", params:{id: "@bomb_id", deactivation_code:"@deactivationEntry"} },
                 'submit': {method: 'POST', isObject:true},
-                'detonate': { method: 'GET', url:"/api/bomb/detonate/:id",
-                params:{id:"@bomb_id"} },
-                'cut': { method: 'GET', url:"/api/bomb/cut/:id/:wire_id",
-                params:{id:"@bomb_id", wire_id:"@wire_id"} },
-                'index': { method: 'GET', isArray: true },
-                'show': { method: 'GET', isArray: false },
-                'update': { method: 'PUT' },
+                'detonate':  { method: 'GET', url:"/api/bomb/detonate/:id", params:{id:"@bomb_id"} },
+                'cut':  { method: 'GET', url:"/api/bomb/cut/:id/:wire_id", params:{id:"@bomb_id", wire_id:"@wire_id"} },
+                'index':   { method: 'GET', isArray: true },
+                'show':    { method: 'GET', isArray: false },
+                'update':  { method: 'PUT' },
                 'explode': { method: 'GET' }
                 }
                 );
@@ -625,6 +591,8 @@
         <h3>ng-keypad</h3>
         <pre>
             <code data-trim>
+                # public/partials/keypad/numeric-iphone.html
+
             </code>
         </pre>
 
@@ -634,8 +602,30 @@
 <section>
     <section>
         <h2><span class="bowerLogo"></span>Bower</h2>
-
         <h2><span class="npmlogo"></span>NPM</h2>
+        <pre>
+            <code data-trim>
+                // Bower.json
+                "dependencies": {
+                "angular-resource": "~1.2.23",
+                "angular-route": "~1.2.23",
+                "angular": "1.3.0-beta.19",
+                "jquery": ">= 1.6.4",
+                "sprintf": "~1.0.0",
+                "bootstrap": "~3.2.0",
+                "tinycolor": "~1.0.0",
+                "grunt": "~0.4.5",
+                "angular-timer": "https://github.com/enovajuan/angular-timer.git#master"
+                },
+                "devDependencies": {
+                "angularjs-utilities": "~0.0.9",
+                "jquery-steps": "~1.0.8",
+                "ng-keypad": "https://github.com/trochette/ng-keypad.git",
+                "coffee-script": "~1.8.0"
+                }
+            </code>
+        </pre>
+
 
     </section>
     <section>
@@ -643,6 +633,22 @@
 
         <pre>
             <code data-trim>
+                //...
+                // Gruntfile
+                // Load the plugin that provides the "uglify" task.
+                grunt.loadNpmTasks('grunt-contrib-uglify');
+                grunt.loadNpmTasks('grunt-bower-install-simple');
+                grunt.loadNpmTasks('grunt-contrib-concat');
+                grunt.loadNpmTasks('grunt-bowercopy');
+
+                // Default task(s).
+                grunt.registerTask('default', ['uglify']);
+                grunt.registerTask('bower', [
+                'bower-install',
+                'concat',
+                'bowercopy'
+                ]);
+                grunt.registerTask("bower-install", [ "bower-install-simple" ]);
             </code>
             </pre>
 
@@ -651,23 +657,36 @@
 
 <section>
     <section>
-        <h2><span class="herokuLogo"></span>Heroku</h2>
-
-        <h3 class="fragment">Signup at <a href="www.heroku.com">Heroku.com</a>
-        </h3>
+        <h2><span class="herokuLogo"></span></h2>
+        <h3 class="fragment">Signup at <a href="www.heroku.com">Heroku.com</a> </h3>
         <pre class="fragment">
             <code data-trim>
+                $git push heroku master
+                Fetching repository, done.
+                Counting objects: 10, done.
+                Delta compression using up to 4 threads.
+                Compressing objects: 100% (6/6), done.
+                Writing objects: 100% (6/6), 876 bytes | 0 bytes/s, done.
+                Total 6 (delta 4), reused 0 (delta 0)
             </code>
         </pre>
     </section>
 
 </section>
 
+<section>
+    <p>This presentation was made using <a href="http://lab.hakim.se/reveal-js/" title="Reveal.js">reveal.js</a></p>
+    <p>Created by Hakim El Hattab / @hakimel</p>
+
+    <p>UML diagrams created with <a href="http://jumly.tmtk.net/">JUMLY</a></p>
+</section>
+
 
 <section>
     <h1>THE END</h1>
 
-    <h3>BY Juan Bonfante / juanbonfante.com</h3>
+    <h3>BY Juan Bonfante / <a href="http://blog.juanbonfante.com">juanbonfante.com</a></h3>
+    <h4>email: <a href="mailto:juan@juanbonfante.com">juan @ juanbonfante.com</a></h4>
 </section>
 
 </div>
@@ -727,12 +746,15 @@
             } },
             { src: 'plugin/notes/notes.js', async: true, condition: function () {
                 return !!document.body.classList;
-            } }
+            } },
+            { src: 'js/presentation.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
         ]
     });
 
 </script>
-<script src="js/presentation.js"></script>
+<!--<script src="js/presentation.js"></script>-->
 
 </body>
 </html>

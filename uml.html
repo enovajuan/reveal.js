@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--<link rel="stylesheet" href="css/reveal.min.css">-->
+    <!--<link rel="stylesheet" href="css/theme/moon.css" id="theme">-->
+    <link rel="stylesheet" href="css/custom.css" id="presentation">
+    <link href='/lib/css/jumly.min.css' rel='stylesheet'/>
+    <link href='/lib/css/fancy.css' rel='stylesheet'/>
+    <script src='lib/js/jquery-2.1.1.min.js'></script>
+    <script src='lib/js/coffee-script.js'></script>
+    <script src='lib/js/jumly.min.js'></script>
+</head>
+<body>
+<div class="fancy">
+
+    <div data-jumly='text/jumly+sequence' class="hidden">
+@found "UI", ->
+  @message "init", "AngularJS", ->
+    @create asynchronous: "connection", "API(Sinatra)"
+    @message "activate", "API(Sinatra)", ->
+      @message "init bomb", "Postgres", ->
+        @reply "ok", "API(Sinatra)"
+      @reply "bombID, wires", "UI"
+    @message "cut wire", "API(Sinatra)", ->
+      @message "cut wire_id", "Postgres", ->
+        @reply "ok", "API(Sinatra)"
+      @reply "defused/exploded/inert", "UI"
+    @message "deactivate", "API(Sinatra)", ->
+      @message "bomb id", "Postgres", ->
+        @reply "ok", "API(Sinatra)"
+    @reply "deactivated", "UI"
+</div>
+</div>
+
+
+</body>
+</html>
